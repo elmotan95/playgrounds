@@ -27,22 +27,34 @@ chmod +x generate-feature.sh
 cd src/features  # or wherever your features are located
 ```
 
-3. Run the script with options:
+3. Run the script:
 ```bash
 # Generate everything (default)
-path/to/generate-feature.sh
+./generate-feature.sh "feature name"
 
 # Generate only screen
-path/to/generate-feature.sh --screen
+./generate-feature.sh "feature name" --screen
 
 # Generate only hook
-path/to/generate-feature.sh --hook
+./generate-feature.sh "feature name" --hook
 
 # Generate only component
-path/to/generate-feature.sh --component
+./generate-feature.sh "feature name" --component
 
 # Show help
-path/to/generate-feature.sh --help
+./generate-feature.sh --help
+```
+
+Examples:
+```bash
+# Generate full feature structure
+./generate-feature.sh "user profile"
+
+# Generate only screen component
+./generate-feature.sh "user profile" --screen
+
+# Generate only hook
+./generate-feature.sh "shopping cart" --hook
 ```
 
 4. Enter the feature name when prompted

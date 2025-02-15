@@ -6,17 +6,43 @@ TEMPLATES_DIR="$SCRIPT_DIR/templates"
 
 # Help message
 show_help() {
-    echo "Usage: $0 [options]"
+    echo "Usage: $0 <feature-name> [options]"
+    echo ""
+    echo "Arguments:"
+    echo "  feature-name  Name of the feature to generate"
+    echo ""
     echo "Options:"
     echo "  --screen     Generate only screen"
     echo "  --hook       Generate only hook"
     echo "  --component  Generate only component"
     echo "  --help       Show this help message"
     echo ""
+    echo "Examples:"
+    echo "  $0 \"user profile\"          # Generate full feature"
+    echo "  $0 \"user profile\" --screen # Generate only screen"
+    echo ""
     echo "If no option is provided, all files will be generated."
 }
 
-# Parse command line arguments
+# Check if help is requested
+if [[ "$1" == "--help" ]]; then
+    show_help
+    exit 0
+fi
+
+# Check if feature name is provided
+if [ -z "$1" ]; then
+    echo "❌ Error: Feature name is required"
+    echo ""
+    show_help
+    exit 1
+fi
+
+# Get feature name from first argument
+feature_name="$1"
+shift # Remove first argument, leaving only options
+
+# Parse remaining command line arguments
 GENERATE_ALL=true
 GENERATE_SCREEN=false
 GENERATE_HOOK=false
@@ -40,16 +66,8 @@ do
         GENERATE_ALL=false
         shift
         ;;
-        --help)
-        show_help
-        exit 0
-        ;;
     esac
 done
-
-# Read feature name from user input
-echo "Enter feature name:"
-read feature_name
 
 # Convert to PascalCase (handling spaces)
 feature_name_pascal=""
